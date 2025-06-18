@@ -459,6 +459,7 @@ void RootWindow::OnCommand(int id, HWND hWndCtl, UINT codeNotify)
             if (pContextMenu)
             {
                 OpenDefaultItem(*this, pContextMenu);
+                CHECK_LE(SetWindowText(m_hEdit, TEXT("")));
                 SendMessage(*this, WM_CLOSE, 0, 0);
             }
         }
@@ -523,7 +524,10 @@ void RootWindow::OnContextMenu(HWND hWndContext, UINT xPos, UINT yPos)
         const int j = (int) m_ListBox.GetItemData(sel);
 
         if (m_jlmh.DoJumpListMenu(*this, m_items[j]->pShellItem, { (LONG) xPos, (LONG) yPos }))
+        {
+            CHECK_LE(SetWindowText(m_hEdit, TEXT("")));
             SendMessage(*this, WM_CLOSE, 0, 0);
+        }
     }
 }
 
