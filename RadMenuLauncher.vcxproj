@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ECB5DCF5-8150-48C8-8C8F-A87AFFF71109}</ProjectGuid>
+    <ProjectGuid>{BF933B66-30ED-4D91-8355-17FE7DCD01DD}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
@@ -72,7 +72,7 @@
     <ClCompile Include="ImageUtils.cpp" />
     <ClCompile Include="JumpList.cpp" />
     <ClCompile Include="JumpListMenu.cpp" />
-    <ClCompile Include="RadMenu.cpp" />
+    <ClCompile Include="RadMenuLauncher.cpp" />
     <ClCompile Include="Rad\Dialog.cpp" />
     <ClCompile Include="Rad\Log.cpp" />
     <ClCompile Include="Rad\MessageHandler.cpp" />
@@ -106,10 +106,10 @@
     <ClInclude Include="WindowsPlus.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="RadMenu.rc" />
+    <ResourceCompile Include="RadMenuLauncher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\RadMenu.ico" />
+    <Image Include="res\RadMenuLauncher.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

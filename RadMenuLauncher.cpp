@@ -180,7 +180,7 @@ private:
     void OnDrawItem(const DRAWITEMSTRUCT* lpDrawItem);
     void OnContextMenu(HWND hWndContext, UINT xPos, UINT yPos);
 
-    static LPCTSTR ClassName() { return TEXT("RadMenu"); }
+    static LPCTSTR ClassName() { return TEXT("RadMenuLauncher"); }
 
     HWND m_hEdit = NULL;
     ListBoxOwnerDrawnFixed m_ListBox;
@@ -206,7 +206,7 @@ void RootWindow::GetCreateWindow(CREATESTRUCT& cs)
     const Options& options = *reinterpret_cast<Options*>(cs.lpCreateParams);
 
     Window::GetCreateWindow(cs);
-    cs.lpszName = TEXT("Rad Menu");
+    cs.lpszName = TEXT("Rad Menu Launcher");
     cs.style = WS_POPUP | WS_BORDER | WS_VISIBLE;
     cs.dwExStyle = WS_EX_TOPMOST | WS_EX_TOOLWINDOW;
     cs.dwExStyle |= WS_EX_CONTROLPARENT;
@@ -226,13 +226,13 @@ void RootWindow::GetWndClass(WNDCLASS& wc)
 void ShowUsage()
 {
     MessageBox(NULL,
-        TEXT("RadMenu <options>\n")
+        TEXT("RadMenuLauncher <options>\n")
         TEXT("Where <options> are:\n")
         TEXT("  /is\t\t- use small icons\n")
         TEXT("  /il\t\t- use large icons\n")
         TEXT("  /sort\t\t- sort items\n")
         TEXT("  /noblur\t\t- remove blur effect"),
-        TEXT("Rad Menu"), MB_OK | MB_ICONINFORMATION);
+        TEXT("Rad Menu Launcher"), MB_OK | MB_ICONINFORMATION);
 }
 
 bool Options::ParseCommandLine(const int argc, const LPCTSTR* argv)
@@ -256,7 +256,7 @@ bool Options::ParseCommandLine(const int argc, const LPCTSTR* argv)
         }
         else
         {
-            MessageBox(NULL, Format(TEXT("Unknown argument: %s"), arg).c_str(), TEXT("Rad Menu"), MB_OK | MB_ICONERROR);
+            MessageBox(NULL, Format(TEXT("Unknown argument: %s"), arg).c_str(), TEXT("Rad Menu Launcher"), MB_OK | MB_ICONERROR);
             ret = false;
         }
     }
@@ -634,7 +634,7 @@ LRESULT RootWindow::HandleMessage(const UINT uMsg, const WPARAM wParam, const LP
 
 bool Run(_In_ const LPCTSTR lpCmdLine, _In_ const int nShowCmd)
 {
-    RadLogInitWnd(NULL, "RadMenu", L"RadMenu");
+    RadLogInitWnd(NULL, "RadMenuLauncher", L"RadMenuLauncher");
 
     if (true)
     {
@@ -656,7 +656,7 @@ bool Run(_In_ const LPCTSTR lpCmdLine, _In_ const int nShowCmd)
     RootWindow* prw = RootWindow::Create(options);
     CHECK_LE_RET(prw != nullptr, false);
 
-    RadLogInitWnd(*prw, "RadMenu", L"RadMenu");
+    RadLogInitWnd(*prw, "RadMenuLauncher", L"RadMenuLauncher");
     g_hWndDlg = *prw;
     CHECK_LE(ShowWindow(*prw, nShowCmd));
 
