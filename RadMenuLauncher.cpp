@@ -153,15 +153,34 @@ struct Options
 
 class RootWindow : public Window
 {
-    friend WindowManager<RootWindow>;
-
 public:
-    static ATOM Register() { return WindowManager<RootWindow>::Register(); }
-    static RootWindow* Create(const Options& options) { return WindowManager<RootWindow>::Create(reinterpret_cast<LPVOID>(const_cast<Options*>(&options))); }
+    friend WindowManager<RootWindow>;
+    struct Class
+    {
+        static LPCTSTR ClassName() { return TEXT("RadMenuLauncher"); }
+        static void GetWndClass(WNDCLASS& wc)
+        {
+            //MainClass::GetWndClass(wc);
+            wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+            wc.hbrBackground = g_Theme.brWindow;
+            wc.hIcon = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_ICON1));
+        }
+        static void GetCreateWindow(CREATESTRUCT& cs)
+        {
+            //MainClass::GetCreateWindow(cs);
+            cs.style = WS_POPUP | WS_BORDER | WS_VISIBLE;
+            cs.dwExStyle = WS_EX_TOPMOST | WS_EX_TOOLWINDOW;
+            cs.dwExStyle |= WS_EX_CONTROLPARENT;
+            cs.x = 100;
+            cs.y = 100;
+            cs.cx = 500;
+            cs.cy = 500;
+        }
+    };
+public:
+    static RootWindow* Create(const Options& options) { return WindowManager<RootWindow>::Create(NULL, TEXT("Rad Menu Launcher"), reinterpret_cast<LPVOID>(const_cast<Options*>(&options))); }
 
 protected:
-    static void GetCreateWindow(CREATESTRUCT& cs);
-    static void GetWndClass(WNDCLASS& wc);
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam) override;
 
 private:
@@ -179,8 +198,6 @@ private:
     HBRUSH OnCtlColor(HDC hdc, HWND hWndChild, int type);
     void OnDrawItem(const DRAWITEMSTRUCT* lpDrawItem);
     void OnContextMenu(HWND hWndContext, UINT xPos, UINT yPos);
-
-    static LPCTSTR ClassName() { return TEXT("RadMenuLauncher"); }
 
     HWND m_hEdit = NULL;
     ListBoxOwnerDrawnFixed m_ListBox;
@@ -200,28 +217,6 @@ private:
     void FillList();
     void AddItemToList(const Item& i, const size_t j, const std::vector<std::tstring>& search);
 };
-
-void RootWindow::GetCreateWindow(CREATESTRUCT& cs)
-{
-    const Options& options = *reinterpret_cast<Options*>(cs.lpCreateParams);
-
-    Window::GetCreateWindow(cs);
-    cs.lpszName = TEXT("Rad Menu Launcher");
-    cs.style = WS_POPUP | WS_BORDER | WS_VISIBLE;
-    cs.dwExStyle = WS_EX_TOPMOST | WS_EX_TOOLWINDOW;
-    cs.dwExStyle |= WS_EX_CONTROLPARENT;
-    cs.x = 100;
-    cs.y = 100;
-    cs.cx = 500;
-    cs.cy = 500;
-}
-
-void RootWindow::GetWndClass(WNDCLASS& wc)
-{
-    Window::GetWndClass(wc);
-    wc.hbrBackground = g_Theme.brWindow;
-    wc.hIcon = LoadIcon(g_hInstance, MAKEINTRESOURCE(IDI_ICON1));
-}
 
 void ShowUsage()
 {
@@ -651,7 +646,7 @@ bool Run(_In_ const LPCTSTR lpCmdLine, _In_ const int nShowCmd)
 
     InitTheme();
 
-    CHECK_LE_RET(RootWindow::Register(), false);
+    CHECK_LE_RET(Register<RootWindow::Class>(), false);
 
     RootWindow* prw = RootWindow::Create(options);
     CHECK_LE_RET(prw != nullptr, false);
