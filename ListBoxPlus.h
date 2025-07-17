@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowsPlus.h"
 #include <Windowsx.h>
+#include "Rad/WinError.h"
 #include "Rad/MessageHandler.h"
 
 struct Theme
@@ -29,7 +30,7 @@ public:
     {
         const HINSTANCE hInstance = NULL;
         m_hWnd = CreateWindow(WC_LISTBOX, nullptr, dwStyle, rPos.left, rPos.top, Width(rPos), Height(rPos), hParent, reinterpret_cast<HMENU>(static_cast<INT_PTR>(nID)), hInstance, NULL);
-        CHECK_LE(m_hWnd);
+        CHECK_LE(m_hWnd != NULL);
     }
 
     operator bool() const { return m_hWnd != NULL; }

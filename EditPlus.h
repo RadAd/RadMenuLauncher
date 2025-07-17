@@ -2,6 +2,7 @@
 #include "WindowsPlus.h"
 #include <Windowsx.h>
 #include <CommCtrl.h>
+#include "Rad/WinError.h"
 
 inline HWND Edit_Create(HWND hParent, DWORD dwStyle, RECT rc, int id)
 {
@@ -14,7 +15,7 @@ inline HWND Edit_Create(HWND hParent, DWORD dwStyle, RECT rc, int id)
         (HMENU) (INT_PTR) id,
         NULL,
         NULL);
-    CHECK_LE(hWnd);
+    CHECK_LE(hWnd != NULL);
     return hWnd;
 }
 
@@ -29,6 +30,6 @@ inline HWND ComboBox_Create(HWND hParent, DWORD dwStyle, RECT rc, int id)
         (HMENU) (INT_PTR) id,
         NULL,
         NULL);
-    CHECK_LE(hWnd);
+    CHECK_LE(hWnd != NULL);
     return hWnd;
 }

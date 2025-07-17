@@ -9,7 +9,7 @@
 #include "WindowsPlus.h"
 #include "OwnerDrawnMenuHandler.h"
 
-#include "Rad/Log.h"
+#include "Rad/WinError.h"
 #include "Rad/MemoryPlus.h"
 
 #include <atlcomcli.h>

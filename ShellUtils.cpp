@@ -9,7 +9,7 @@
 #include <ShlObj.h>
 #include <propvarutil.h>
 
-#include "Rad/Log.h"
+#include "Rad/WinError.h"
 #include "Rad/MemoryPlus.h"
 #include "Rad/Format.h"
 

@@ -8,7 +8,7 @@
 #include <wincodec.h>
 #include <shlwapi.h>
 
-#include "Rad/Log.h"
+#include "Rad/WinError.h"
 #include "Rad/MemoryPlus.h"
 
 // Loads an image file into a bitmap and optionally resizes it
